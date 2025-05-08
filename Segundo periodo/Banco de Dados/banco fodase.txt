@@ -1,0 +1,18 @@
+--- DIA 07/05
+*** CONTEÚDO
+LEFT e INNER JOIN tem geralmente o mesmo efeito
+o que vai em SELECT, vai em GROUP BY
+
+*** CÓDIGO
+CREATE DATABASE db_aula;
+USE db_aula;
+
+CREATE TABLE tb_aluno(
+    id INT PRIMARY KEY AUTO_INCREMENT
+);
+CREATE TABLE tb_curso(
+    id INT PRIMARY KEY AUTO_INCREMENT
+);
+CREATE TABLE tb_curso_aluno(
+    id INT PRIMARY KEY AUTO_INCREMENT
+);
