@@ -1,0 +1,1 @@
+Aqui colocarei minha pasta de faculdade, ou seja qualquer arquivo, programa, software, qualquer tipo de coisa que eu adicionar ficará salvo aqui, como se fosse um backup porém de maneira pública para que todos possam olhar e quem sabe se insipirar em algum projeto meu!
