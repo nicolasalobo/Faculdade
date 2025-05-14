@@ -358,3 +358,68 @@ O **&&** é o mesmo que o **AND**, ou seja, se os dois valores forem verdadeiros
 O **||** é o mesmo que o **OR**, ou seja, se um dos dois valores for verdadeiro, ele retorna true.  
 O **!** é o mesmo que o **NOT**, ou seja, ele inverte o valor, se for true, ele retorna false, e se for false, ele retorna true.  
 Porém não podemos usar **AND** e **OR**, mesmo o PHP aceitando, não é bom usar pois eles vem depois na lista de precedência, então pode dar erro, ou um resultado diferente do esperado.
+
+## <span style="color: #FA8072">Truthy e Falsy</span>
+
+Falsy são valores que se comportam como booleanos falsos, mas não são de fato valores booleanos. Eles são:
+- Null
+- 0
+- 0.0
+- "0"
+- "" (String vazia)
+- array()
+
+Já os Truthy é o resto todo.  
+Como vimos anteriormente, se quiseremos saber exatamente o valor booleano, podemos **negar** duas vezes, ou seja **!!**. Por isso podemos aplicar **!** para transformar valores como 0, em valores booleanos.
+
+## <span style="color: #FA8072">If e else</span>
+
+```php
+if('alexandre'){
+  echo 'teste';
+}
+```
+
+Como podemos ver, dentro do parenteses nós temos a condição do **IF**, e entre as chaves nós temos o que será exibido caso a condição seja verdadeira.  
+Porém como vimos anteriormente em Truthy e Falsy, a condição não necessariamente precisa ser um booleano, e podemos adaptar isso usando a negação ou negação dupla (afirmação) para transformar a condição.  
+O else faz com que em caso da condição não ser atinida, ele executa o else. Outra solução é usar o return para fazer com que se o código seja executado com sucesso, não execute o resto.
+
+```php
+if($resultado){
+  echo 'é verdadeiro';
+  return;
+}
+echo 'não é verdadeiro';
+```
+
+Ou também podemos usar outro tipo de condicionamento, a seguir
+
+```php
+echo($resultado) ? 'é verdadeiro' : 'não é verdadeiro';
+```
+Fazendo com que, caso a condição seja verdadeira ele executa o que está entre **? e :** e caso seja falso ele executa o que vem depois de **:**.  
+
+## <span style="color: #FA8072">Switch</span>
+
+Switch é um seletor, onde você pode criar diversas opções e casos, onde cada um acontece de uma maneira.
+
+```php
+$name = 'nicolas'
+switch($name) {
+  case 'nicolas':
+    echo 'é o nicolas'
+    break;
+  case 'joão':
+    echo 'é o joão'
+    break;
+  default:
+    echo 'não é ninguém'
+    break;
+}
+```
+
+Assim em diante, como podemos ver no exemplo, ele executa conforme o caso que foi usado, e caso nenhum dos casos esperados aconteça, o **default** é o executado.
+
+## <span style="color: #FA8072">Booleanos</span>
+
+Booleanos, são os **true e falses** puros, que não podemos alterar ou "manipular" eles igual fazemos com truthy e falsy.
