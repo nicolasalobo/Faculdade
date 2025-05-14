@@ -3,11 +3,27 @@
 ## <span style="color: #FA8072">Básico</span>
 
 PHP Chama automaticamente o arquivo index.php, podendo assim ser especificado uma pasta para que ele busque um index.php  
-Código PHP funciona abrindo ele com <span style="color: #FF8C00">< ?php</span> e fechando com <span style="color: #FF8C00">? ></span>ficando mais ou menos assim  
-<span style="color: #FF8C00">< ?php  
-CÓDIGO  
-? ></span>  
-echo é usado para exibir algo na tela, mesma função do print. Quando não existe mais nada além do código (algo como html ou enfim) não é necessário a tag de fechamento "? >"
+Código PHP funciona abrindo ele com
+
+```php
+<?php
+```
+
+e fechando com
+
+```php
+?>
+```
+
+ficando mais ou menos assim
+
+```php
+<?php
+CÓDIGO
+?>
+```
+
+echo é usado para exibir algo na tela, mesma função do print. Quando não existe mais nada além do código (algo como html ou enfim) não é necessário a tag de fechamento.
 
 ## <span style="color: #FA8072">Interação entre arquivos:</span>
 
@@ -25,16 +41,32 @@ Caso exista mais conteúdo para baixo do erro, e está sendo usado o Require, as
 
 #### <span style="color: #98FB98">Include_once e Require_once</span>
 
-Significa que só será chamado uma vez, se fizermos por exemplo  
-<span style="color: #FF8C00">include './teste.php';  
-include './teste.php';</span>  
-e dentro do arquivo ter uma informação como "Teste", o output será  
-<span style="color: #FF8C00">TesteTeste</span>  
-Porém caso eu insira  
-<span style="color: #FF8C00">include_once './teste.php';  
-include_once './teste.php';</span>  
-o output será  
-<span style="color: #FF8C00">Teste</span>  
+Significa que só será chamado uma vez, se fizermos por exemplo
+
+```php
+include './teste.php';
+include './teste.php';
+```
+
+e dentro do arquivo ter uma informação como "Teste", o output será
+
+```php
+TesteTeste
+```
+
+Porém caso eu insira
+
+```php
+include_once './teste.php';
+include_once './teste.php';
+```
+
+o output será
+
+```php
+Teste
+```
+
 E o mesmo se aplica para o Require, porém ainda diferenciando o include e o require.
 
 ## <span style="color: #FA8072">Variáveis</span>
@@ -59,11 +91,15 @@ Arrays são um vetor, onde pode ser armazenado mais de um tipo de arquivo. Terem
 
 #### <span style="color: #98FB98">Object</span>
 
-Podemos criar por exemplo  
-<span style="color: #FF8C00">class Person  
-{  
-}  
-echo gettype(new Person);</span>  
+Podemos criar por exemplo
+
+```php
+class Person
+{
+}
+echo gettype(new Person);
+```
+
 Mais para frente terá mais falando sobre orientado a objetos.
 
 #### <span style="color: #98FB98">Nulo</span>
@@ -73,26 +109,65 @@ Simplesmente a ausência de algum dado.
 #### <span style="color: #98FB98">Voltando</span>
 
 Todos esses tipos de dados podem ser armazenados em uma variável, e o nome da variável só funciona se começar com \_ ou com letras, qualquer outra coisa não funciona.  
-Se por exemplo fizermos  
-<span style="color: #FF8C00">$name = 'Nicolas'</span>
+Se por exemplo fizermos
 
-<span style="color: #FF8C00">echo $name</span>  
-O output será <span style="color: #FF8C00">"Nicolas"</span>  
+```php
+$name = 'Nicolas'
+echo $name
+```
+
+O output será
+
+```php
+Nicolas
+```
+
 Quando trabalhamos com nomes compostos, temos dois padrões para separar, e é de pessoa pra pessoa, não tendo um certo ou errado e sim preferências, mas recomenda-se que uma vez que você adote sua própria preferência, mantenha ela.  
 Temos o padrão **camelCase** ou o padrão **snake_case**, que só de olhar assim para eles se percebe como cada um funciona. Pessoalmente eu gosto de usar o snake_case.  
-Lembrando que o camelCase funciona, pois o PHP é sensível a letras maiúsculas e minuúsculas, então se se colocarmos <span style="color: #ff8c00"> $myname </span> vai ser completamente diferente de <span style="color: #FF8C00"> $myName </span> e serão duas variáveis diferentes.  
-Outro tópico muito importante é sobre como são armazenados os dados nas variáveis. Podemos armazenar de uma maneira simples, igualando a variável a alguma coisa, porém se fizermos  
-<span style="color: #FF8C00"> $name = 'Nicolas'</span>
+Lembrando que o camelCase funciona, pois o PHP é sensível a letras maiúsculas e minuúsculas, então se se colocarmos 
 
-<span style="color: #FF8C00"> $my_name = $name</span>
+```php
+$myname
+```
 
-<span style="color: #FF8C00"> $name = 'João'</span>
+vai ser completamente diferente de
 
-<span style="color: #FF8C00"> echo $name</span>
+```php
+$myName
+```
 
-<span style="color: #FF8C00"> echo $my_name</span>  
-Nós teremos um output desta maneira  
-<span style="color: #FF8C00"> João</span>  
-<span style="color: #FF8C00"> Nicolas</span>  
-Isso acontece pois a variável <span style="color: #FF8C00"> $my_name</span> já registrou seu próprio valor como Nicolas, e depois disso a outra variável se alterou, porém caso mude o código e coloquemos  
-<span style="color: #FF8C00"> $my_name = & $name</span> (sem o espaço entre o & e o $) ele não atribuirá apenas o valor, e sim a referência, então se a outra variável mudar igual mudou, ambas ficarão iguais.
+e serão duas variáveis diferentes.  
+Outro tópico muito importante é sobre como são armazenados os dados nas variáveis. Podemos armazenar de uma maneira simples, igualando a variável a alguma coisa, porém se fizermos
+
+```php
+$name = 'Nicolas'
+
+$my_name = $name
+
+$name = 'João'
+
+echo $name
+
+echo $my_name
+```
+
+Nós teremos um output desta maneira
+
+```php
+João
+Nicolas
+```
+
+Isso acontece pois a variável
+
+```php
+$my_name
+```
+
+já registrou seu próprio valor como Nicolas, e depois disso a outra variável se alterou, porém caso mude o código e coloquemos
+
+```php
+$my_name = &$name
+```
+
+ele não atribuirá apenas o valor, e sim a referência, então se a outra variável mudar igual mudou, ambas ficarão iguais.
