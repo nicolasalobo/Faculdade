@@ -124,7 +124,7 @@ Nicolas
 
 Quando trabalhamos com nomes compostos, temos dois padrões para separar, e é de pessoa pra pessoa, não tendo um certo ou errado e sim preferências, mas recomenda-se que uma vez que você adote sua própria preferência, mantenha ela.  
 Temos o padrão **camelCase** ou o padrão **snake_case**, que só de olhar assim para eles se percebe como cada um funciona. Pessoalmente eu gosto de usar o snake_case.  
-Lembrando que o camelCase funciona, pois o PHP é sensível a letras maiúsculas e minuúsculas, então se se colocarmos 
+Lembrando que o camelCase funciona, pois o PHP é sensível a letras maiúsculas e minuúsculas, então se se colocarmos
 
 ```php
 $myname
@@ -141,13 +141,9 @@ Outro tópico muito importante é sobre como são armazenados os dados nas vari�
 
 ```php
 $name = 'Nicolas'
-
 $my_name = $name
-
 $name = 'João'
-
 echo $name
-
 echo $my_name
 ```
 
@@ -171,3 +167,194 @@ $my_name = &$name
 ```
 
 ele não atribuirá apenas o valor, e sim a referência, então se a outra variável mudar igual mudou, ambas ficarão iguais.
+
+## <span style="color: #FA8072">Constantes</span>
+
+Uma variável, que não varia, ou seja, algo definido e **CONSTANTE**. Usamos **CAPS LOCK** para definir uma constante. Definimos uma constante da seguinte maneira:
+
+```php
+define('NAME', 'Alexandre');
+echo NAME;
+```
+
+Sendo assim, o primeiro valor antes da vírgula o nome da constante, e o segundo valor, o valor dessa constante.  
+Existe também o que chamamos de **constante mágica**, ele exibe o nome da função que está, e é definido por duas \_\_ no começo e no fim do seu nome, por exemplo:
+
+```php
+echo __FUNCTION__;
+echo __METHOD__;
+```
+
+Assim como existem constantes mágicas, que exibem coisas desse tipo, o PHP contém muitas constantes próprias, com diversas funções.
+
+```php
+echo DIRECTORY_SEPARATOR;
+```
+
+Exibe apenas uma / no caso acima  
+Temos uma maneira de mostrar todas as constantes definidas do PHP, e é do seguinte modo:
+
+```php
+$cons = get_defined_constants(true);
+var_dump($cons);
+```
+
+Isso mostrará todas as constantes definidas, e o que é mais interessante, é que ele mostra também as constantes definidas por extensões, como o MySQLi, PDO, etc.
+Isso é interessante, pois podemos ver todas as constantes que o PHP tem, e assim podemos usar elas para facilitar nosso trabalho.
+
+## <span style="color: #FA8072">Conceito de instrução e ponto e vírgula</span>
+
+Uma instrução é quando você diz para o PHP qualquer coisa para ele fazer, definir uma variável por exemplo, é você dizer para o PHP definir dentro de uma variável um valor, como uma string. O ponto e vírgula vem sempre no **FINAL** da instrução. Porém, a última linha do código, logo antes de fechar a tag do PHP, eu posso não colocar um ponto e vírgula.
+
+## <span style="color: #FA8072">Operadores aritméticos</span>
+
+Os operadores aritméticos são os mesmos do que em qualquer outra linguagem, e são os seguintes:  
+Vamos definir valores antes de mostrar
+
+```php
+$number1 = 10;
+$number2 = 20;
+```
+
+- **+** Adição
+
+```php
+echo $number1 + $number2;
+```
+
+O output será
+
+```php
+30
+```
+
+- **-** Subtração
+
+```php
+echo $number1 - $number2;
+```
+
+O output será
+
+```php
+-10
+```
+
+- **\*** Multiplicação
+
+```php
+echo $number1 * $number2;
+```
+
+O output será
+
+```php
+200
+```
+
+- **/** Divisão
+
+```php
+echo $number1 / $number2;
+```
+
+O output será
+
+```php
+0.5
+```
+
+- **%** Resto da divisão
+
+```php
+echo $number1 % $number2;
+```
+
+O output será
+
+```php
+10
+```
+
+O PHP tem o que chamamos de **precedência**, que é a ordem que o PHP executa as operações, indo de cima para baixo, tendo a ordem dos operadores escito na documentação.
+
+## <span style="color: #FA8072">Operadores de atribuição</span>
+
+```php
+$name = 'Nicolas';
+```
+
+Isso é uma atribuição, ou seja, o valor da variável $name é igual a Nicolas. Eu estou atribuindo o valor Nicolas a variável $name.  
+Temos também o operador de concatenar, que é o ponto **.**.
+Ele serve para concatenar strings, ou seja, juntar duas strings.
+Por exemplo, se eu fizer
+
+```php
+$name = 'Nicolas';
+$last_name = 'Lobo';
+```
+
+E depois eu fizer
+
+```php
+echo $name . ' ' . $last_name;
+```
+
+O output será
+
+```php
+Nicolas Lobo
+```
+
+Isso acontece pois o ponto **.** é o operador de concatenação, e ele junta as duas strings, e o espaço entre elas é uma string também, então ele junta tudo e exibe na tela. Fácil de lembrar porque concatenar parece conectar.  
+Outra maneira de fazer isso, é usar o operador de atribuição junto com de concatenar, ficando do seguinte modo:
+
+```php
+$name = 'Nicolas';
+$name .= ' Lobo';
+echo $name;
+```
+
+O output será
+
+```php
+Nicolas Lobo
+```
+
+Esse modo de usar o = serve para qualquer outro operador, como o +, -, /, \*, etc.
+
+## <span style="color: #FA8072">Operadores de incremento e decremento</span>
+
+Podemos dividir em pré e pós incremento, ou seja, se o operador de incremento vem antes ou depois da variável. Assim como pré decremento e pós decremento.  
+O operador de incremento é o **++**, e o operador de decremento é o **--**.  
+Funcionam como em qualquer outra linguagem, incrementando ou decrementando o valor da variável em 1. Porém temos a divisão que eu não tinha conhecimento até o momento. aqui está uma demonstração da diferença
+
+```php
+$number = 10;
+echo ++$number; // Pré incremento
+// Output
+11
+
+// Agora o pós
+$number = 10;
+echo $number++; // Pós incremento
+// Output
+10
+```
+
+Isso acontece pois o incremento vem antes ou depois da variável ser exibida, podendo exibir com ou sem a alteração.
+
+## <span style="color: #FA8072">Operadores de comparação</span>
+
+Os operadores de comparação comparam dois valores, e retornam um valor booleano, ou seja, true ou false, retornando 1 para true e nada para false. Porém isso pode ser facilmente alterado com a inserção de um var_dump, que mostrará o valor retornado. (True ou false).  
+Os operadores são: **<, >, <=, >=, ==, ===, !=, !==.**  
+O único novo é o de **!=** com o de **!==**, que é o mesmo que o de **==** e **===**, porém com a diferença de que o primeiro não se importa com o tipo, enquanto o segundo sim. Ao se dizer tipo, estou me referindo a string, int, float, etc.
+
+## <span style="color: #FA8072">Operadores lógicos</span>
+
+Assim como os operadores de comparação, também retornam um valor booleano, ou seja, true ou false. Porém ele aceita como entrada booleanos também.  
+Os operadores lógicos são: **&&, ||, !**.  
+O **&&** é o mesmo que o **AND**, ou seja, se os dois valores forem verdadeiros, ele retorna true.  
+O **||** é o mesmo que o **OR**, ou seja, se um dos dois valores for verdadeiro, ele retorna true.  
+O **!** é o mesmo que o **NOT**, ou seja, ele inverte o valor, se for true, ele retorna false, e se for false, ele retorna true.  
+Porém não podemos usar **AND** e **OR**, mesmo o PHP aceitando, não é bom usar pois eles vem depois na lista de precedência, então pode dar erro, ou um resultado diferente do esperado.
