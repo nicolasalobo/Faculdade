@@ -1,8 +1,8 @@
 AULA DIA 08/05/2025
------------------ Código aula 1 -----------------
+----------------------- Código aula 1 -----------------------
 -- Criar um banco de dados
-CREATE DATABASE db_puc;
-USE db_puc;
+CREATE DATABASE puc;
+USE puc;
 
 -- Criar tabelas
 CREATE TABLE tb_aluno (
@@ -148,3 +148,55 @@ LEFT JOIN tb_curso ON curso_id = ca_id_curso;
 -- SELECT curso_nome, COUNT(aluno_id) AS num_alunos_matriculados
 -- FROM vw_matricula_curso
 -- GROUP BY curso_nome;
+
+
+AULA DIA 14/05/2025
+----------------------- Código aula 2 -----------------------
+RELEMBRANDO
+-- SELECT FROM vw_historico_realizado;
+CREATE TABLE tb_boletim (
+    boletim_id INT PRIMARY KEY AUTO_INCREMENT,
+    boletim_id_matricula INT,
+    boletim_nota1 FLOAT,
+    boletim_nota2 FLOAT,
+    boletim_nota3 FLOAT,
+    FOREIGN KEY (boletim_id_matricula) REFERENCES tb_matricula (mat_id)
+);
+
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1, boletim_nota2, boletim_nota2, boletim_nota3) VALUES
+(1, 9.5, 8.2, 6.1);
+
+SELECT mat_id, mat_nota, boletim_nota1, boletim_nota2, boletim_nota3
+FROM tb_matricula INNER JOIN tb_boletim ON tb_boletim.boletim_id_matricula = tb_matricula.mat_id;
+LEFT JOIN vw_historico_realizado vw ON vw.mat_id = tb_matricula.mat_id;
+
+UPDATE tb_matricula
+SET mat_nota = 
+(SELECT (boletim_nota1+boletim_nota2+boletim_nota3)/3 FROM tb_boletim
+WHERE tb_boletim.boletim_id_matricula= tb_matricula.mat_id)
+WHERE mat_id IN 
+(SELECT tb_boletim.boletim_id_matricula FROM tb_boletim)
+AND tb_matricula.mat_nota IS NULL;
+
+-- EXERCICIO
+-- Inserir na tb_boletim registros notas, igual foi feito agora na 1, fazer para todos
+
+-- INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1, boletim_nota2, boletim_nota3) VALUES
+-- Fazer isso para todas as matriculas do 2 ao 9
+
+-- Aluno 2
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (2, 10, 8.5, 9.3);
+-- Aluno 3
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (3, 7.5, 8.0, 9.0);
+-- Aluno 4
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (4, 6.0, 7.5, 8.0);
+-- Aluno 5
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (5, 9.0, 8.0, 7.5);
+-- Aluno 6
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (6, 8.0, 9.0, 7.5);
+-- Aluno 7
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (7, 9.5, 8.5, 9.0);
+-- Aluno 8
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (8, 7.0, 8.0, 9.0);
+-- Aluno 9
+INSERT INTO tb_boletim (boletim_id_matricula, boletim_nota1,boletim_nota2,boletim_nota3) VALUES (9, 8.5, 9.0, 7.5);
