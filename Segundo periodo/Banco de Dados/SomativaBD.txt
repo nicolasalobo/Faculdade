@@ -1,0 +1,363 @@
+CREATE DATABASE IF NOT EXISTS db_clinica;
+
+USE db_clinica;
+
+CREATE TABLE
+    tb_clinica (
+        id_clinica INT AUTO_INCREMENT PRIMARY KEY,
+        nome_clinica VARCHAR(100),
+        end_clinica VARCHAR(100),
+        site_clinica VARCHAR(100),
+        fone_clinica VARCHAR(15)
+    );
+
+CREATE TABLE
+    tb_consulta (
+        id_consulta INT AUTO_INCREMENT PRIMARY KEY,
+        consulta_data DATE,
+        consulta_descricao VARCHAR(255),
+        consulta_horario TIME,
+        fk_clinica_id INT,
+        fk_paciente_id INT,
+        fk_medvet_id INT
+    );
+
+CREATE TABLE
+    tb_paciente (
+        id_paciente INT AUTO_INCREMENT PRIMARY KEY,
+        nome_paciente VARCHAR(100),
+        tel_paciente VARCHAR(15),
+        email_paciente VARCHAR(100),
+        raca_paciente VARCHAR(50),
+        tutor_paciente VARCHAR(100),
+        fk_clinica_id INT
+    );
+
+CREATE TABLE
+    tb_medvet (
+        id_medvet INT AUTO_INCREMENT PRIMARY KEY,
+        nome_medvet VARCHAR(100),
+        crmv_medvet VARCHAR(20),
+        tel_medvet VARCHAR(15)
+    );
+
+CREATE TABLE
+    tb_responsavel (
+        resp_id INT AUTO_INCREMENT PRIMARY KEY,
+        nome_resp VARCHAR(100),
+        email_resp VARCHAR(100),
+        tel_resp VARCHAR(15),
+        crmv_resp VARCHAR(20),
+        fk_clinica_id INT
+    );
+
+CREATE TABLE
+    tb_mv_clinica (
+        mv_clinica_id INT AUTO_INCREMENT PRIMARY KEY,
+        fk_clinica_id INT,
+        fk_medvet_id INT
+    );
+
+ALTER TABLE tb_consulta ADD CONSTRAINT fk_clinica_id_consulta FOREIGN KEY (fk_clinica_id) REFERENCES tb_clinica (id_clinica);
+
+ALTER TABLE tb_consulta ADD CONSTRAINT fk_paciente_id_consulta FOREIGN KEY (fk_paciente_id) REFERENCES tb_paciente (id_paciente);
+
+ALTER TABLE tb_consulta ADD CONSTRAINT fk_medvet_id_consulta FOREIGN KEY (fk_medvet_id) REFERENCES tb_medvet (id_medvet);
+
+ALTER TABLE tb_paciente ADD CONSTRAINT fk_clinica_id_paciente FOREIGN KEY (fk_clinica_id) REFERENCES tb_clinica (id_clinica);
+
+ALTER TABLE tb_mv_clinica ADD CONSTRAINT fk_clinica_id_mv_clinica FOREIGN KEY (fk_clinica_id) REFERENCES tb_clinica (id_clinica);
+
+ALTER TABLE tb_mv_clinica ADD CONSTRAINT fk_medvet_id_mv_clinica FOREIGN KEY (fk_medvet_id) REFERENCES tb_medvet (id_medvet);
+
+ALTER TABLE tb_responsavel ADD CONSTRAINT fk_clinica_id_responsavel FOREIGN KEY (fk_clinica_id) REFERENCES tb_clinica (id_clinica);
+
+INSERT INTO
+    tb_clinica (
+        nome_clinica,
+        end_clinica,
+        site_clinica,
+        fone_clinica
+    )
+VALUES
+    (
+        'Clinica Veterinaria 1',
+        'Rua das Flores, 123',
+        'www.clinicavet.com.br',
+        '1234-5678'
+    ),
+    (
+        'Clinica Veterinaria 2',
+        'Rua das Palmeiras, 321',
+        'www.clinicavet2.com.br',
+        '1111-2222'
+    ),
+    (
+        'Clinica Veterinaria 3',
+        'Rua das Acácias, 159',
+        'www.clinicavet3.com.br',
+        '8888-9999'
+    ),
+    (
+        'Clinica Veterinaria 4',
+        'Rua das Orquídeas, 951',
+        'www.clinicavet4.com.br',
+        '7777-8888'
+    ),
+    (
+        'Clinica Veterinaria 5',
+        'Rua das Rosas, 357',
+        'www.clinicavet5.com.br',
+        '3333-4444'
+    );
+
+INSERT INTO
+    tb_paciente (
+        nome_paciente,
+        tel_paciente,
+        email_paciente,
+        raca_paciente,
+        tutor_paciente,
+        fk_clinica_id
+    )
+VALUES
+    (
+        'Rex',
+        '1234-5678',
+        'rex.tutor@example.com',
+        'Labrador',
+        'João Silva',
+        1
+    ),
+    (
+        'Mia',
+        '9876-5432',
+        'mia.tutor@example.com',
+        'Persa',
+        'Maria Oliveira',
+        2
+    ),
+    (
+        'Thor',
+        '5555-5555',
+        'thor.tutor@example.com',
+        'Golden Retriever',
+        'Carlos Santos',
+        3
+    ),
+    (
+        'Luna',
+        '1111-2222',
+        'luna.tutor@example.com',
+        'Siamese',
+        'Ana Costa',
+        4
+    ),
+    (
+        'Max',
+        '3333-4444',
+        'max.tutor@example.com',
+        'Bulldog',
+        'Pedro Lima',
+        5
+    );
+
+INSERT INTO
+    tb_medvet (nome_medvet, crmv_medvet, tel_medvet)
+VALUES
+    ('Dr. Ana Paula', 'CRMV-12345', '1234-5678'),
+    ('Dr. Carlos Alberto', 'CRMV-67890', '9876-5432'),
+    ('Dra. Fernanda Lima', 'CRMV-54321', '5555-5555'),
+    ('Dr. Roberto Santos', 'CRMV-09876', '1111-2222'),
+    ('Dra. Juliana Costa', 'CRMV-13579', '3333-4444');
+
+INSERT INTO
+    tb_mv_clinica (fk_clinica_id, fk_medvet_id)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);
+
+INSERT INTO
+    tb_consulta (
+        consulta_data,
+        consulta_descricao,
+        consulta_horario,
+        fk_clinica_id,
+        fk_paciente_id,
+        fk_medvet_id
+    )
+VALUES
+    (
+        '2023-10-01',
+        'Consulta de rotina',
+        '09:00:00',
+        1,
+        1,
+        1
+    ),
+    ('2023-10-02', 'Vacinação', '10:30:00', 2, 2, 2),
+    (
+        '2023-10-03',
+        'Exame de sangue',
+        '14:00:00',
+        3,
+        3,
+        3
+    ),
+    (
+        '2023-10-04',
+        'Consulta de emergência',
+        '16:30:00',
+        4,
+        4,
+        4
+    ),
+    (
+        '2023-10-05',
+        'Retorno de cirurgia',
+        '11:00:00',
+        5,
+        5,
+        5
+    );
+
+INSERT INTO
+    tb_responsavel (
+        nome_resp,
+        email_resp,
+        tel_resp,
+        crmv_resp,
+        fk_clinica_id
+    )
+VALUES
+    (
+        'Dr. João Pereira',
+        'joao.pereira@example.com',
+        '1234-5678',
+        'CRMV-11111',
+        1
+    ),
+    (
+        'Dra. Mariana Silva',
+        'mariana.silva@example.com',
+        '9876-5432',
+        'CRMV-22222',
+        2
+    ),
+    (
+        'Dr. Felipe Costa',
+        'felipe.costa@example.com',
+        '5555-5555',
+        'CRMV-33333',
+        3
+    );
+
+CREATE VIEW
+    vw_paciente_clinica AS
+SELECT
+    tb_clinica.nome_clinica,
+    tb_paciente.nome_paciente
+FROM
+    tb_clinica
+    JOIN tb_paciente ON tb_clinica.id_clinica = tb_paciente.fk_clinica_id;
+
+CREATE VIEW
+    vw_consulta_clinica AS
+SELECT
+    tb_clinica.nome_clinica,
+    tb_consulta.id_consulta,
+    tb_consulta.consulta_data
+FROM
+    tb_clinica
+    JOIN tb_consulta ON tb_clinica.id_clinica = tb_consulta.fk_clinica_id;
+
+CREATE VIEW
+    vw_count_medclinica AS
+SELECT
+    tb_clinica.nome_clinica,
+    COUNT(tb_medvet.id_medvet) AS total_medvet
+FROM
+    tb_clinica
+    JOIN tb_mv_clinica ON tb_clinica.id_clinica = tb_mv_clinica.fk_clinica_id
+    JOIN tb_medvet ON tb_mv_clinica.fk_medvet_id = tb_medvet.id_medvet
+GROUP BY
+    tb_clinica.nome_clinica;
+
+CREATE VIEW
+    vw_paciente_medvet_clinica AS
+SELECT
+    tb_medvet.nome_medvet,
+    tb_clinica.nome_clinica,
+    COUNT(tb_paciente.nome_paciente) AS total_paciente
+FROM
+    tb_medvet
+    JOIN tb_mv_clinica ON tb_medvet.id_medvet = tb_mv_clinica.fk_medvet_id
+    JOIN tb_clinica ON tb_mv_clinica.fk_clinica_id = tb_clinica.id_clinica
+    JOIN tb_paciente ON tb_clinica.id_clinica = tb_paciente.fk_clinica_id
+GROUP BY
+    tb_medvet.nome_medvet,
+    tb_clinica.nome_clinica,
+    tb_paciente.nome_paciente;
+
+CREATE VIEW
+    vw_count_consulta_mensal_clinica_medvet AS
+SELECT
+    tb_clinica.nome_clinica,
+    tb_medvet.nome_medvet,
+    MONTH (tb_consulta.consulta_data) AS mes,
+    COUNT(tb_consulta.id_consulta) AS total_consultas
+FROM
+    tb_clinica
+    JOIN tb_consulta ON tb_clinica.id_clinica = tb_consulta.fk_clinica_id
+    JOIN tb_medvet ON tb_consulta.fk_medvet_id = tb_medvet.id_medvet
+GROUP BY
+    tb_clinica.nome_clinica,
+    tb_medvet.nome_medvet,
+    MONTH (tb_consulta.consulta_data);
+
+CREATE VIEW
+    vw_count_consulta_paciente_medvet AS
+SELECT
+    tb_medvet.nome_medvet,
+    tb_paciente.nome_paciente,
+    COUNT(tb_consulta.id_consulta) AS total_consultas
+FROM
+    tb_medvet
+    JOIN tb_consulta ON tb_medvet.id_medvet = tb_consulta.fk_medvet_id
+    JOIN tb_paciente ON tb_consulta.fk_paciente_id = tb_paciente.id_paciente
+GROUP BY
+    tb_medvet.nome_medvet,
+    tb_paciente.nome_paciente;
+
+UPDATE tb_paciente
+SET
+    tutor_paciente = 'Guilherme G10'
+WHERE
+    id_paciente = 1;
+
+UPDATE tb_paciente
+SET
+    nome_paciente = 'Bisteca'
+WHERE
+    id_paciente = 1;
+
+UPDATE tb_medvet
+SET
+    nome_medvet = 'Dr. Vinicius Trevisan'
+WHERE
+    id_medvet = 1;
+
+UPDATE tb_consulta
+SET
+    consulta_data = '2025-05-15'
+WHERE
+    id_consulta = 1;
+
+UPDATE tb_consulta
+SET
+    consulta_horario = '10:00:00'
+WHERE
+    id_consulta = 1;
