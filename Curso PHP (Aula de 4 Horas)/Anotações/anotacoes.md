@@ -423,3 +423,31 @@ Assim em diante, como podemos ver no exemplo, ele executa conforme o caso que fo
 ## <span style="color: #FA8072">Booleanos</span>
 
 Booleanos, são os **true e falses** puros, que não podemos alterar ou "manipular" eles igual fazemos com truthy e falsy.
+
+## <span style="color: #FA8072">Strings</span>
+
+Tudo que está incluso entre aspas simples ou duplas, é uma string. Porém nós usamos aspas simples quando vamos colocar apenas um tipo dentro da string, caso queiramos incluir uma variável na string, precisamos usar aspas duplas.
+
+```php
+$age = 38;
+$name = 'kjajflksdfjaçlsdf {$age}'
+```
+
+Como podemos ver, ele detecta a variável como se fosse texto e símbolo comum, porém ao usarmos aspas duplas ele reconhece o outro tipo de arquivo.
+
+```php
+$age = 38;
+$name = "kjajflksdfjaçlsdf {$age}"
+```
+
+## <span style="color: #FA8072">ARRAYS</span>
+
+Arrays armazenam mais de uma variável, dentro de um único nome, podendo acessar cada variável de maneira individual.  
+Podemos criar arrays tanto definindo como array() mas também apenas colocando entre colchetes. Segue um exemplo de array
+
+```php
+$names = ['nicolas', 'guilherme', 'joão'];
+```
+
+Como podemos ver, a array que foi criada, contém apenas strings, porém contem mais de uma string na mesma variável, a variável **$names**.  
+Um array pode armazenar mais de um tipo de dado, podemos colocar o que quiser, como por exemplo strings, números, booleanos. E podemos também usar var_dump para exibir em um echo, todos os valores que estão dentro do array, e não só isso como também os tipos dos valores que estão dentro do array.
