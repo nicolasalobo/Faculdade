@@ -362,6 +362,7 @@ Porém não podemos usar **AND** e **OR**, mesmo o PHP aceitando, não é bom us
 ## <span style="color: #FA8072">Truthy e Falsy</span>
 
 Falsy são valores que se comportam como booleanos falsos, mas não são de fato valores booleanos. Eles são:
+
 - Null
 - 0
 - 0.0
@@ -397,7 +398,8 @@ Ou também podemos usar outro tipo de condicionamento, a seguir
 ```php
 echo($resultado) ? 'é verdadeiro' : 'não é verdadeiro';
 ```
-Fazendo com que, caso a condição seja verdadeira ele executa o que está entre **? e :** e caso seja falso ele executa o que vem depois de **:**.  
+
+Fazendo com que, caso a condição seja verdadeira ele executa o que está entre **? e :** e caso seja falso ele executa o que vem depois de **:**.
 
 ## <span style="color: #FA8072">Switch</span>
 
@@ -450,4 +452,170 @@ $names = ['nicolas', 'guilherme', 'joão'];
 ```
 
 Como podemos ver, a array que foi criada, contém apenas strings, porém contem mais de uma string na mesma variável, a variável **$names**.  
-Um array pode armazenar mais de um tipo de dado, podemos colocar o que quiser, como por exemplo strings, números, booleanos. E podemos também usar var_dump para exibir em um echo, todos os valores que estão dentro do array, e não só isso como também os tipos dos valores que estão dentro do array.
+Um array pode armazenar mais de um tipo de dado, podemos colocar o que quiser, como por exemplo strings, números, booleanos. E podemos também usar
+
+```php
+var_dump
+```
+
+para exibir em um echo, todos os valores que estão dentro do array, e não só isso como também os tipos dos valores que estão dentro do array.  
+Agora, para podermos mexer no array. O array já está criaco, com alguns dados dentro dele, porém eu quero adicionar algo NO FINAL do array, como faço isso?
+Podemos usar o **array_push**, que adiciona um valor no final do array, ou seja, ele empurra o valor para o final do array.
+Por exemplo, se eu fizer
+
+```php
+$names = ['nicolas', 'guilherme', 'joão'];
+array_push($names, 'alexandre');
+```
+
+O array agora terá o valor **alexandre** no final dele, ou seja, o array agora é
+
+```php
+$names = ['nicolas', 'guilherme', 'joão', 'alexandre'];
+```
+
+E se eu quiser adicionar um valor no começo do array, como faço isso?
+Podemos usar o **array_unshift**, que adiciona um valor no começo do array, ou seja, ele empurra o valor para o começo do array.
+Por exemplo, se eu fizer
+
+```php
+$names = ['nicolas', 'guilherme', 'joão'];
+array_unshift($names, 'alexandre');
+```
+
+O array agora terá o valor **alexandre** no começo dele, ou seja, o array agora é
+
+```php
+$names = ['alexandre', 'nicolas', 'guilherme', 'joão'];
+```
+
+E se eu quiser adicionar um valor em uma posição específica do array, como faço isso?
+Podemos usar o **array_splice**, que adiciona um valor em uma posição específica do array, ou seja, ele remove o valor da posição e adiciona o valor na posição que você quer.
+Por exemplo, se eu fizer
+
+```php
+$names = ['nicolas', 'guilherme', 'joão'];
+array_splice($names, 1, 0, 'alexandre');
+```
+
+O array agora terá o valor **alexandre** na posição 1 dele, ou seja, o array agora é
+
+```php
+$names = ['nicolas', 'alexandre', 'guilherme', 'joão'];
+```
+
+E se eu quiser remover um valor do array, como faço isso?
+Podemos usar o **array_pop**, que remove o valor do final do array, ou seja, ele remove o valor do final do array.
+Por exemplo, se eu fizer
+
+```php
+$names = ['nicolas', 'guilherme', 'joão'];
+array_pop($names);
+```
+
+O array agora terá o valor **joão** removido do final dele, ou seja, o array agora é
+
+```php
+$names = ['nicolas', 'guilherme'];
+```
+
+E se eu quiser remover um valor do começo do array, como faço isso?
+Podemos usar o **array_shift**, que remove o valor do começo do array, ou seja, ele remove o valor do começo do array.
+Por exemplo, se eu fizer
+
+```php
+$names = ['nicolas', 'guilherme', 'joão'];
+array_shift($names);
+```
+
+O array agora terá o valor **nicolas** removido do começo dele, ou seja, o array agora é
+
+```php
+$names = ['guilherme', 'joão'];
+```
+
+E se eu quiser remover um valor de uma posição específica do array, como faço isso?
+Podemos usar o **array_splice**, que remove o valor de uma posição específica do array, ou seja, ele remove o valor da posição que você quer.
+Por exemplo, se eu fizer
+
+```php
+$names = ['nicolas', 'guilherme', 'joão'];
+array_splice($names, 1, 1);
+```
+
+O array agora terá o valor **guilherme** removido da posição 1 dele, ou seja, o array agora é
+
+```php
+$names = ['nicolas', 'joão'];
+```
+
+Arrays com indice são aqueles que contém uma flecha **=>** e acabam por passar a ideia de que o valor da esquerda é o índice e o valor da direita é o valor.
+Por exemplo, se eu fizer
+
+```php
+$names = [
+  'nicolas' => 'Nicolas',
+  'guilherme' => 'Guilherme',
+  'joão' => 'João'
+];
+```
+
+O array agora terá o valor **Nicolas** na posição **nicolas**, ou seja, o array agora é
+
+```php
+$names = [
+  'nicolas' => 'Nicolas',
+  'guilherme' => 'Guilherme',
+  'joão' => 'João'
+];
+```
+
+e podemos até colocar outro array dentro de um array, como por exemplo
+
+```php
+$names = [
+  'nicolas' => [
+    'nome' => 'Nicolas',
+    'idade' => 38
+  ],
+  'guilherme' => [
+    'nome' => 'Guilherme',
+    'idade' => 20
+  ],
+  'joão' => [
+    'nome' => 'João',
+    'idade' => 25
+  ]
+];
+```
+
+O array agora terá o valor **Nicolas** na posição **nicolas**, ou seja, o array agora é
+
+```php
+$names = [
+  'nicolas' => [
+    'nome' => 'Nicolas',
+    'idade' => 38
+  ],
+  'guilherme' => [
+    'nome' => 'Guilherme',
+    'idade' => 20
+  ],
+  'joão' => [
+    'nome' => 'João',
+    'idade' => 25
+  ]
+];
+```
+
+## <span style="color: #FA8072">Mudando tipo de dado</span>
+
+Uma das maneiras de mudar o tipo de dado, é chamar o tipo de dado que você quer que a variável seja, e colocar entre parênteses o nome da variável.  
+Por exemplo, se eu fizer
+
+```php
+$number = 10;
+$number = (string) $number;
+```
+
+O número agora é uma string, ou seja, o número 10 agora é uma string.
