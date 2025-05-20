@@ -619,3 +619,33 @@ $number = (string) $number;
 ```
 
 O número agora é uma string, ou seja, o número 10 agora é uma string.
+E se eu quiser mudar um array, por exemplo para objetos, como posso fazer?
+Temos que dar indices, para que possamos chamar eles depois.
+
+```php
+names = [
+  'nicolas' => [
+    'nome' => 'Nicolas',
+    'idade' => 38
+  ],
+  'guilherme' => [
+    'nome' => 'Guilherme',
+    'idade' => 20
+  ],
+  'joão' => [
+    'nome' => 'João',
+    'idade' => 25
+  ]
+];
+$names = (object) $names;
+var_dump($names=>nicolas->nome);
+```
+
+O output do vardump será
+
+```php
+string(7) "Nicolas"
+```
+
+Isso acontece pois o array agora é um objeto, e o nome da variável é **nicolas**, e o valor dela é **Nicolas**.  
+Porém para dados do tipo int, float, double, str e bool, não é dessa maneira, para eles usamos as funções específicas de cada um.
