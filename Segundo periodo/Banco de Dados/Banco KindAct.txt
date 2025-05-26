@@ -1,0 +1,123 @@
+CREATE DATABASE kindact;
+
+USE kindact;
+
+CREATE TABLE
+    tb_ong (
+        ong_id INT AUTO_INCREMENT PRIMARY KEY,
+        ong_nome VARCHAR(100),
+        ong_cnpj VARCHAR(18),
+        ong_telefone VARCHAR(20),
+        ong_email VARCHAR(100),
+        ong_site VARCHAR(255),
+        ong_area_atuacao VARCHAR(100),
+        ong_nome_responsavel VARCHAR(100),
+        ong_cep VARCHAR(10),
+        ong_logradouro VARCHAR(100),
+        ong_numero VARCHAR(10),
+        ong_bairro VARCHAR(50),
+        ong_complemento VARCHAR(50),
+        ong_cidade VARCHAR(50),
+        ong_uf CHAR(2)
+    );
+
+CREATE TABLE
+    tb_voluntario (
+        voluntario_id INT AUTO_INCREMENT PRIMARY KEY,
+        voluntario_nome VARCHAR(100),
+        voluntario_cpf VARCHAR(14),
+        voluntario_data_nascimento DATE,
+        voluntario_idade INT,
+        voluntario_sexo VARCHAR(10),
+        voluntario_profissao VARCHAR(50),
+        voluntario_telefone VARCHAR(20),
+        voluntario_email VARCHAR(100)
+    );
+
+CREATE TABLE
+    tb_evento (
+        evento_id INT AUTO_INCREMENT PRIMARY KEY,
+        evento_titulo VARCHAR(100),
+        evento_descricao TEXT,
+        evento_data_inicio DATE,
+        evento_data_termino DATE,
+        evento_local VARCHAR(100),
+        fk_ong_id INT,
+        FOREIGN KEY (fk_ong_id) REFERENCES tb_ong (ong_id)
+    );
+
+CREATE TABLE
+    tb_destinatario (
+        destinatario_id INT AUTO_INCREMENT PRIMARY KEY,
+        destinatario_nome VARCHAR(100),
+        destinatario_endereco VARCHAR(150),
+        destinatario_telefone VARCHAR(20)
+    );
+
+CREATE TABLE
+    tb_doacao (
+        doacao_id INT AUTO_INCREMENT PRIMARY KEY,
+        doacao_tipo VARCHAR(50),
+        doacao_valor DECIMAL(10, 2),
+        doacao_mensagem TEXT,
+        doacao_data DATE,
+        fk_voluntario_id INT,
+        fk_ong_id INT,
+        fk_destinatario_id INT,
+        FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario(voluntario_id),
+        FOREIGN KEY (fk_ong_id) REFERENCES tb_ong(ong_id),
+        FOREIGN KEY (fk_destinatario_id) REFERENCES tb_destinatario(destinatario_id)
+    );
+
+CREATE TABLE
+    tb_curadoria (
+        curadoria_id INT AUTO_INCREMENT PRIMARY KEY,
+        curadoria_nome VARCHAR(100),
+        curadoria_requisitos_minimos TEXT,
+        fk_ong_id INT,
+        FOREIGN KEY (fk_ong_id) REFERENCES tb_ong (ong_id)
+    );
+
+CREATE TABLE
+    tb_cargos (
+        cargo_id INT AUTO_INCREMENT PRIMARY KEY,
+        cargo_nome VARCHAR(100),
+        cargo_descricao TEXT
+    );
+
+CREATE TABLE
+    tb_voluntario_evento (
+        fk_voluntario_id INT,
+        fk_evento_id INT,
+        PRIMARY KEY (fk_voluntario_id, fk_evento_id),
+        FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario (voluntario_id),
+        FOREIGN KEY (fk_evento_id) REFERENCES tb_evento (evento_id)
+    );
+
+CREATE TABLE
+    tb_voluntario_curadoria (
+        fk_voluntario_id INT,
+        fk_curadoria_id INT,
+        voluntario_curadoria_status_aprovacao VARCHAR(50),
+        PRIMARY KEY (fk_voluntario_id, fk_curadoria_id),
+        FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario (voluntario_id),
+        FOREIGN KEY (fk_curadoria_id) REFERENCES tb_curadoria (curadoria_id)
+    );
+
+CREATE TABLE
+    tb_avaliacao (
+        avaliacao_id INT AUTO_INCREMENT PRIMARY KEY,
+        avaliacao_nota INT,
+        avaliacao_comentario TEXT,
+        fk_voluntario_id INT,
+        FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario (voluntario_id)
+    );
+
+CREATE TABLE
+    tb_voluntario_cargo (
+        fk_voluntario_id INT,
+        fk_cargo_id INT,
+        PRIMARY KEY (fk_voluntario_id, fk_cargo_id),
+        FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario (voluntario_id),
+        FOREIGN KEY (fk_cargo_id) REFERENCES tb_cargos (cargo_id)
+    );
