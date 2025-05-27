@@ -64,9 +64,9 @@ CREATE TABLE
         fk_voluntario_id INT,
         fk_ong_id INT,
         fk_destinatario_id INT,
-        FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario(voluntario_id),
-        FOREIGN KEY (fk_ong_id) REFERENCES tb_ong(ong_id),
-        FOREIGN KEY (fk_destinatario_id) REFERENCES tb_destinatario(destinatario_id)
+        FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario (voluntario_id),
+        FOREIGN KEY (fk_ong_id) REFERENCES tb_ong (ong_id),
+        FOREIGN KEY (fk_destinatario_id) REFERENCES tb_destinatario (destinatario_id)
     );
 
 CREATE TABLE
@@ -121,3 +121,279 @@ CREATE TABLE
         FOREIGN KEY (fk_voluntario_id) REFERENCES tb_voluntario (voluntario_id),
         FOREIGN KEY (fk_cargo_id) REFERENCES tb_cargos (cargo_id)
     );
+
+INSERT INTO
+    tb_ong (
+        ong_nome,
+        ong_cnpj,
+        ong_telefone,
+        ong_email,
+        ong_site,
+        ong_area_atuacao,
+        ong_nome_responsavel,
+        ong_cep,
+        ong_logradouro,
+        ong_numero,
+        ong_bairro,
+        ong_complemento,
+        ong_cidade,
+        ong_uf
+    )
+VALUES
+    (
+        'Amigos do Bem',
+        '12.345.678/0001-90',
+        '(11) 99999-1111',
+        'contato@amigosdobem.org',
+        'https://amigosdobem.org',
+        'Educação',
+        'Maria Silva',
+        '01001-000',
+        'Rua das Flores',
+        '100',
+        'Centro',
+        '',
+        'São Paulo',
+        'SP'
+    ),
+    (
+        'Criança Feliz',
+        '98.765.432/0001-10',
+        '(21) 98888-2222',
+        'contato@criancafeliz.org',
+        'https://criancafeliz.org',
+        'Saúde',
+        'João Souza',
+        '20000-000',
+        'Av. Brasil',
+        '200',
+        'Copacabana',
+        'Apto 101',
+        'Rio de Janeiro',
+        'RJ'
+    );
+
+INSERT INTO
+    tb_voluntario (
+        voluntario_nome,
+        voluntario_cpf,
+        voluntario_data_nascimento,
+        voluntario_idade,
+        voluntario_sexo,
+        voluntario_profissao,
+        voluntario_telefone,
+        voluntario_email
+    )
+VALUES
+    (
+        'Ana Paula',
+        '123.456.789-00',
+        '1990-05-10',
+        34,
+        'Feminino',
+        'Enfermeira',
+        '(11) 91234-5678',
+        'ana.paula@email.com'
+    ),
+    (
+        'Carlos Mendes',
+        '987.654.321-11',
+        '1985-08-22',
+        38,
+        'Masculino',
+        'Professor',
+        '(21) 92345-6789',
+        'carlos.mendes@email.com'
+    );
+
+INSERT INTO
+    tb_evento (
+        evento_titulo,
+        evento_descricao,
+        evento_data_inicio,
+        evento_data_termino,
+        evento_local,
+        fk_ong_id
+    )
+VALUES
+    (
+        'Campanha do Agasalho',
+        'Arrecadação de roupas para o inverno',
+        '2024-06-01',
+        '2024-06-30',
+        'São Paulo',
+        1
+    ),
+    (
+        'Mutirão da Saúde',
+        'Atendimento médico gratuito',
+        '2024-07-10',
+        '2024-07-12',
+        'Rio de Janeiro',
+        2
+    );
+
+INSERT INTO
+    tb_destinatario (
+        destinatario_nome,
+        destinatario_endereco,
+        destinatario_telefone
+    )
+VALUES
+    (
+        'Lar das Crianças',
+        'Rua Esperança, 50, São Paulo',
+        '(11) 93456-7890'
+    ),
+    (
+        'Casa do Idoso',
+        'Av. Alegria, 200, Rio de Janeiro',
+        '(21) 94567-8901'
+    );
+
+INSERT INTO
+    tb_doacao (
+        doacao_tipo,
+        doacao_valor,
+        doacao_mensagem,
+        doacao_data,
+        fk_voluntario_id,
+        fk_ong_id,
+        fk_destinatario_id
+    )
+VALUES
+    (
+        'Dinheiro',
+        500.00,
+        'Para ajudar nas despesas',
+        '2024-06-05',
+        1,
+        1,
+        1
+    ),
+    (
+        'Alimentos',
+        0.00,
+        'Doação de cestas básicas',
+        '2024-06-15',
+        2,
+        2,
+        2
+    );
+
+INSERT INTO
+    tb_curadoria (
+        curadoria_nome,
+        curadoria_requisitos_minimos,
+        fk_ong_id
+    )
+VALUES
+    (
+        'Curadoria de Projetos',
+        'Experiência em gestão de projetos sociais',
+        1
+    ),
+    (
+        'Curadoria de Saúde',
+        'Formação na área da saúde',
+        2
+    );
+
+INSERT INTO
+    tb_cargos (cargo_nome, cargo_descricao)
+VALUES
+    (
+        'Coordenador',
+        'Responsável pela coordenação das atividades'
+    ),
+    ('Assistente', 'Auxilia nas tarefas diárias');
+
+INSERT INTO
+    tb_voluntario_evento (fk_voluntario_id, fk_evento_id)
+VALUES
+    (1, 1),
+    (2, 2);
+
+INSERT INTO
+    tb_voluntario_curadoria (
+        fk_voluntario_id,
+        fk_curadoria_id,
+        voluntario_curadoria_status_aprovacao
+    )
+VALUES
+    (1, 1, 'Aprovado'),
+    (2, 2, 'Pendente');
+
+INSERT INTO
+    tb_avaliacao (
+        avaliacao_nota,
+        avaliacao_comentario,
+        fk_voluntario_id
+    )
+VALUES
+    (5, 'Excelente trabalho!', 1),
+    (4, 'Muito dedicado.', 2);
+
+INSERT INTO
+    tb_voluntario_cargo (fk_voluntario_id, fk_cargo_id)
+VALUES
+    (1, 1),
+    (2, 2);
+
+CREATE VIEW
+    vw_voluntarios_eventos AS
+SELECT
+    v.voluntario_nome,
+    e.evento_titulo,
+    e.evento_data_inicio,
+    e.evento_local
+FROM
+    tb_voluntario v
+    JOIN tb_voluntario_evento ve ON v.voluntario_id = ve.fk_voluntario_id
+    JOIN tb_evento e ON ve.fk_evento_id = e.evento_id;
+
+CREATE VIEW
+    vw_doacoes_voluntarios AS
+SELECT
+    v.voluntario_nome,
+    d.doacao_tipo,
+    d.doacao_valor,
+    d.doacao_data,
+    o.ong_nome,
+    dest.destinatario_nome
+FROM
+    tb_doacao d
+    JOIN tb_voluntario v ON d.fk_voluntario_id = v.voluntario_id
+    JOIN tb_ong o ON d.fk_ong_id = o.ong_id
+    JOIN tb_destinatario dest ON d.fk_destinatario_id = dest.destinatario_id;
+
+CREATE VIEW
+    vw_avaliacoes_voluntarios AS
+SELECT
+    v.voluntario_nome,
+    a.avaliacao_nota,
+    a.avaliacao_comentario
+FROM
+    tb_avaliacao a
+    JOIN tb_voluntario v ON a.fk_voluntario_id = v.voluntario_id;
+
+CREATE VIEW
+    vw_voluntarios_cargos AS
+SELECT
+    v.voluntario_nome,
+    c.cargo_nome
+FROM
+    tb_voluntario v
+    JOIN tb_voluntario_cargo vc ON v.voluntario_id = vc.fk_voluntario_id
+    JOIN tb_cargos c ON vc.fk_cargo_id = c.cargo_id;
+
+CREATE VIEW
+    vw_ongs_eventos AS
+SELECT
+    o.ong_nome,
+    COUNT(e.evento_id) AS total_eventos
+FROM
+    tb_ong o
+    LEFT JOIN tb_evento e ON o.ong_id = e.fk_ong_id
+GROUP BY
+    o.ong_nome;
