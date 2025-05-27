@@ -1,3 +1,5 @@
+DROP DATABASE kindact;
+
 CREATE DATABASE kindact;
 
 USE kindact;
@@ -171,7 +173,15 @@ VALUES
         'Apto 101',
         'Rio de Janeiro',
         'RJ'
-    );
+    ),
+    ('Sorriso Solidário', '11.111.111/0001-11', '(31) 99999-1111', 'contato@sorrisosolidario.org', 'https://sorrisosolidario.org', 'Saúde', 'Paulo Lima', '30100-000', 'Rua da Paz', '10', 'Centro', '', 'Belo Horizonte', 'MG'),
+    ('Mãos Unidas', '22.222.222/0001-22', '(41) 98888-2222', 'contato@maosunidas.org', 'https://maosunidas.org', 'Assistência Social', 'Fernanda Souza', '80000-000', 'Av. União', '200', 'Batel', '', 'Curitiba', 'PR'),
+    ('Esperança Viva', '33.333.333/0001-33', '(51) 97777-3333', 'contato@esperancaviva.org', 'https://esperancaviva.org', 'Educação', 'Lucas Rocha', '90000-000', 'Rua Esperança', '300', 'Centro', '', 'Porto Alegre', 'RS'),
+    ('Projeto Luz', '44.444.444/0001-44', '(61) 96666-4444', 'contato@projetoluz.org', 'https://projetoluz.org', 'Cultura', 'Juliana Alves', '70000-000', 'Av. das Luzes', '400', 'Asa Sul', '', 'Brasília', 'DF'),
+    ('Vida Nova', '55.555.555/0001-55', '(71) 95555-5555', 'contato@vidanova.org', 'https://vidanova.org', 'Saúde', 'Ricardo Dias', '40000-000', 'Rua Nova', '500', 'Barra', '', 'Salvador', 'BA'),
+    ('Futuro Melhor', '66.666.666/0001-66', '(81) 94444-6666', 'contato@futuromelhor.org', 'https://futuromelhor.org', 'Educação', 'Marina Costa', '50000-000', 'Av. Futuro', '600', 'Boa Viagem', '', 'Recife', 'PE'),
+    ('Solidariedade em Ação', '77.777.777/0001-77', '(85) 93333-7777', 'contato@solidariedadeemacao.org', 'https://solidariedadeemacao.org', 'Assistência Social', 'André Gomes', '60000-000', 'Rua Ação', '700', 'Meireles', '', 'Fortaleza', 'CE'),
+    ('Crescer Juntos', '88.888.888/0001-88', '(62) 92222-8888', 'contato@crescerjuntos.org', 'https://crescerjuntos.org', 'Educação', 'Patrícia Lima', '74000-000', 'Av. Crescer', '800', 'Setor Bueno', '', 'Goiânia', 'GO');
 
 INSERT INTO
     tb_voluntario (
@@ -204,7 +214,15 @@ VALUES
         'Professor',
         '(21) 92345-6789',
         'carlos.mendes@email.com'
-    );
+    ),
+    ('Bruna Silva', '111.222.333-44', '1992-03-15', 32, 'Feminino', 'Psicóloga', '(31) 91111-2222', 'bruna.silva@email.com'),
+    ('Eduardo Ramos', '222.333.444-55', '1988-07-20', 36, 'Masculino', 'Engenheiro', '(41) 92222-3333', 'eduardo.ramos@email.com'),
+    ('Fernanda Costa', '333.444.555-66', '1995-11-05', 29, 'Feminino', 'Advogada', '(51) 93333-4444', 'fernanda.costa@email.com'),
+    ('Gabriel Souza', '444.555.666-77', '1991-01-30', 33, 'Masculino', 'Médico', '(61) 94444-5555', 'gabriel.souza@email.com'),
+    ('Helena Martins', '555.666.777-88', '1993-09-12', 31, 'Feminino', 'Professora', '(71) 95555-6666', 'helena.martins@email.com'),
+    ('Igor Pereira', '666.777.888-99', '1987-06-18', 37, 'Masculino', 'Administrador', '(81) 96666-7777', 'igor.pereira@email.com'),
+    ('Juliana Rocha', '777.888.999-00', '1996-12-25', 28, 'Feminino', 'Enfermeira', '(85) 97777-8888', 'juliana.rocha@email.com'),
+    ('Lucas Fernandes', '888.999.000-11', '1990-04-08', 34, 'Masculino', 'Designer', '(62) 98888-9999', 'lucas.fernandes@email.com');
 
 INSERT INTO
     tb_evento (
@@ -231,7 +249,15 @@ VALUES
         '2024-07-12',
         'Rio de Janeiro',
         2
-    );
+    ),
+    ('Feira da Saúde', 'Ações de saúde preventiva', '2024-08-01', '2024-08-02', 'Belo Horizonte', 3),
+    ('Oficina de Artes', 'Atividades culturais para crianças', '2024-09-10', '2024-09-12', 'Curitiba', 4),
+    ('Palestra Motivacional', 'Palestra para jovens', '2024-10-05', '2024-10-05', 'Porto Alegre', 5),
+    ('Mutirão de Limpeza', 'Limpeza de praças públicas', '2024-11-15', '2024-11-15', 'Brasília', 6),
+    ('Campanha de Vacinação', 'Vacinação gratuita', '2024-12-01', '2024-12-02', 'Salvador', 7),
+    ('Ação Solidária', 'Distribuição de alimentos', '2025-01-20', '2025-01-20', 'Recife', 8),
+    ('Encontro de Voluntários', 'Integração dos voluntários', '2025-02-10', '2025-02-10', 'Fortaleza', 1),
+    ('Festival da Criança', 'Atividades recreativas', '2025-03-15', '2025-03-16', 'Goiânia', 2);
 
 INSERT INTO
     tb_destinatario (
@@ -249,7 +275,15 @@ VALUES
         'Casa do Idoso',
         'Av. Alegria, 200, Rio de Janeiro',
         '(21) 94567-8901'
-    );
+    ),
+    ('Abrigo Esperança', 'Rua Alegria, 100, Belo Horizonte', '(31) 91234-5678'),
+    ('Casa da Paz', 'Av. União, 200, Curitiba', '(41) 92345-6789'),
+    ('Lar Feliz', 'Rua Esperança, 300, Porto Alegre', '(51) 93456-7890'),
+    ('Centro de Apoio', 'Av. das Luzes, 400, Brasília', '(61) 94567-8901'),
+    ('Instituto Vida', 'Rua Nova, 500, Salvador', '(71) 95678-9012'),
+    ('Associação Futuro', 'Av. Futuro, 600, Recife', '(81) 96789-0123'),
+    ('Projeto Solidariedade', 'Rua Ação, 700, Fortaleza', '(85) 97890-1234'),
+    ('Crescer Feliz', 'Av. Crescer, 800, Goiânia', '(62) 98901-2345');
 
 INSERT INTO
     tb_doacao (
@@ -279,7 +313,15 @@ VALUES
         2,
         2,
         2
-    );
+    ),
+    ('Roupas', 0.00, 'Doação de roupas de inverno', '2024-08-03', 3, 3, 3),
+    ('Dinheiro', 200.00, 'Apoio financeiro', '2024-09-11', 4, 4, 4),
+    ('Alimentos', 0.00, 'Cestas básicas', '2024-10-06', 5, 5, 5),
+    ('Livros', 0.00, 'Livros para biblioteca', '2024-11-16', 6, 6, 6),
+    ('Brinquedos', 0.00, 'Brinquedos para crianças', '2024-12-03', 7, 7, 7),
+    ('Dinheiro', 150.00, 'Ajuda para despesas', '2025-01-21', 8, 8, 8),
+    ('Dinheiro', 300.00, 'Doação para projetos', '2025-02-11', 1, 1, 1),
+    ('Alimentos', 0.00, 'Doação de alimentos', '2025-03-17', 2, 2, 2);
 
 INSERT INTO
     tb_curadoria (
@@ -297,7 +339,15 @@ VALUES
         'Curadoria de Saúde',
         'Formação na área da saúde',
         2
-    );
+    ),
+    ('Curadoria de Cultura', 'Experiência em projetos culturais', 3),
+    ('Curadoria de Educação', 'Formação em pedagogia', 4),
+    ('Curadoria de Saúde Mental', 'Psicologia ou áreas afins', 5),
+    ('Curadoria de Esportes', 'Experiência em esportes', 6),
+    ('Curadoria de Meio Ambiente', 'Conhecimento em sustentabilidade', 7),
+    ('Curadoria de Tecnologia', 'Formação em TI', 8),
+    ('Curadoria de Comunicação', 'Experiência em comunicação social', 1),
+    ('Curadoria de Finanças', 'Formação em contabilidade', 2);
 
 INSERT INTO
     tb_cargos (cargo_nome, cargo_descricao)
@@ -306,13 +356,29 @@ VALUES
         'Coordenador',
         'Responsável pela coordenação das atividades'
     ),
-    ('Assistente', 'Auxilia nas tarefas diárias');
+    ('Assistente', 'Auxilia nas tarefas diárias'),
+    ('Tesoureiro', 'Responsável pelas finanças'),
+    ('Secretário', 'Organiza documentos e reuniões'),
+    ('Instrutor', 'Ministra oficinas e cursos'),
+    ('Divulgador', 'Responsável pela divulgação'),
+    ('Motorista', 'Responsável pelo transporte'),
+    ('Assistente Social', 'Atende famílias e pessoas assistidas'),
+    ('Coordenador de Projetos', 'Coordena projetos sociais'),
+    ('Analista de Dados', 'Analisa dados das ações');
 
 INSERT INTO
     tb_voluntario_evento (fk_voluntario_id, fk_evento_id)
 VALUES
     (1, 1),
-    (2, 2);
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (1, 3),
+    (2, 4);
 
 INSERT INTO
     tb_voluntario_curadoria (
@@ -322,7 +388,15 @@ INSERT INTO
     )
 VALUES
     (1, 1, 'Aprovado'),
-    (2, 2, 'Pendente');
+    (2, 2, 'Pendente'),
+    (3, 3, 'Aprovado'),
+    (4, 4, 'Pendente'),
+    (5, 5, 'Aprovado'),
+    (6, 6, 'Pendente'),
+    (7, 7, 'Aprovado'),
+    (8, 8, 'Pendente'),
+    (1, 5, 'Aprovado'),
+    (2, 6, 'Pendente');
 
 INSERT INTO
     tb_avaliacao (
@@ -332,13 +406,29 @@ INSERT INTO
     )
 VALUES
     (5, 'Excelente trabalho!', 1),
-    (4, 'Muito dedicado.', 2);
+    (4, 'Muito dedicado.', 2),
+    (3, 'Bom trabalho.', 3),
+    (5, 'Excelente!', 4),
+    (4, 'Muito participativo.', 5),
+    (2, 'Precisa melhorar.', 6),
+    (5, 'Ótima atuação.', 7),
+    (4, 'Dedicado.', 8),
+    (5, 'Sempre presente.', 1),
+    (3, 'Atencioso.', 2);
 
 INSERT INTO
     tb_voluntario_cargo (fk_voluntario_id, fk_cargo_id)
 VALUES
     (1, 1),
-    (2, 2);
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (1, 5),
+    (2, 6);
 
 CREATE VIEW
     vw_voluntarios_eventos AS
