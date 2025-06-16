@@ -1,0 +1,32 @@
+Relatório DHCP - Parte 1 e Parte 2
+
+Nome do Estudante: Nicolas Amaral Lobo
+
+Relatório - Parte 1: DHCP Direto
+
+Cenário: Cliente PC0 na sub-rede 192.168.0.0/24, com DHCP configurado diretamente no Roteador.
+
+Comando utilizado no PC0: ipconfig /renew
+
+Origem	Destino	IP Origem	IP Destino	Client IP Address	Your Client Address
+PC0	Roteador	0.0.0.0	255.255.255.255	0.0.0.0	0.0.0.0
+Roteador	PC0	192.168.0.1	255.255.255.255	0.0.0.0	192.168.0.11
+PC0	Roteador	0.0.0.0	255.255.255.255	0.0.0.0	192.168.0.11
+Roteador	PC0	192.168.0.1	255.255.255.255	0.0.0.0	192.168.0.11
+
+Exportar para as Planilhas
+Relatório - Parte 2: DHCP com Agente Relay
+
+Cenário: Cliente PC2 na sub-rede 192.168.2.0/24, utilizando um Agente Relay no Roteador 3 para redirecionar requisições até o servidor DHCP no Roteador 0.
+
+Comando utilizado no PC2: ipconfig /renew
+
+Origem	Destino	IP Origem	IP Destino	Client IP Address	Your Client Address
+PC2	Roteador 3	0.0.0.0	255.255.255.255	0.0.0.0	0.0.0.0
+Roteador 3	Roteador 0	192.168.2.1	192.168.1.1	0.0.0.0	0.0.0.0
+Roteador 0	Roteador 3	192.168.1.1	192.168.2.1	0.0.0.0	192.168.2.11
+Roteador 3	PC2	192.168.2.1	255.255.255.255	0.0.0.0	192.168.2.11
+PC2	Roteador 3	0.0.0.0	255.255.255.255	0.0.0.0	192.168.2.11
+Roteador 3	Roteador 0	192.168.2.1	192.168.1.1	0.0.0.0	192.168.2.11
+Roteador 0	Roteador 3	192.168.1.1	192.168.2.1	0.0.0.0	192.168.2.11
+Roteador 3	PC2	192.168.2.1	255.255.255.255	0.0.0.0	192.168.2.11

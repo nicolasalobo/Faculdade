@@ -1,0 +1,47 @@
+Proto Recv-Q Send-Q Local Address          Foreign Address        State
+...
+UDP    0     0    127.0.0.1:12000        *:*
+...
+
+(não foi possível anexar o print, então copiei exatamente o que apareceu em meu terminal.)
+
+1a) Não, o cliente UDP não indica um erro imediatamente se o servidor não estiver ativo. O protocolo UDP é "sem conexão" (connectionless), o que significa que ele simplesmente envia o datagrama para o endereço IP e porta especificados sem estabelecer uma sessão ou verificar se há um processo ouvindo naquele destino. Ele não recebe uma notificação de falha de entrega. 
+
+1b) Não, o cliente UDP não é notificado se enviar uma mensagem para um servidor que não existe. A natureza "fire and forget" do UDP significa que ele envia o pacote e não espera uma confirmação ou notificação de falha. 
+
+1c) Não, o cliente UDP não é notificado se o servidor for encerrado após ter estado ativo. Ele continuará a enviar mensagens sem receber qualquer indicação de que o destino não está mais disponível. 
+
+1d) Para um servidor UDP, não é estritamente necessário usar threads para ouvir mensagens de múltiplos clientes no sentido de receber as mensagens. Um único socket UDP pode receber datagramas de vários clientes, pois cada datagrama já contém o endereço de origem (IP e porta) do remetente. O método s.recvfrom() do servidor UDP é bloqueante e espera por um pacote. Quando um pacote chega, ele é processado. No entanto, se o servidor precisar realizar operações demoradas após receber uma mensagem (além de apenas imprimir), e ainda assim precisar estar pronto para receber o próximo pacote rapidamente, então o uso de threads (ou programação assíncrona) seria benéfico para evitar que o processamento de uma mensagem bloqueie a capacidade de receber outras. Para o cenário simples de apenas "ouvir" e "imprimir", uma única thread é suficiente.
+
+Print screen dos terminais:
+Terminal 1 (Servidor 127.0.0.2:9999):
+
+Servidor UDP iniciado em 127.0.0.2:9999
+sensor  ('127.0.0.1', 5xxxxx)  enviou: Mensagem para Srv1
+
+Terminal 2 (Servidor 127.0.0.3:9999):
+
+Servidor UDP iniciado em 127.0.0.3:9999
+sensor  ('127.0.0.1', 5yyyyy)  enviou: Mensagem para Srv2
+
+Terminal 3 (Cliente):
+
+Entre com o IP de destino: 127.0.0.2
+Entre com a porta de destino: 9999
+Entre com a mensagem: Mensagem para Srv1
+Entre com o IP de destino: 127.0.0.3
+Entre com a porta de destino: 9999
+Entre com a mensagem: Mensagem para Srv2
+
+2a) Sim, o cliente pode enviar mensagens para diferentes endereços IP e/ou portas usando o mesmo objeto socket UDP. No código do ClienteUDP.py, a função s.sendto(mensagem.encode(),(ip,porta)) permite especificar o IP e a porta de destino a cada envio, reutilizando o mesmo socket s. 
+
+2b) Sim, tecnicamente o cliente pode tentar enviar mensagens para o endereço de broadcast 127.255.255.255 no laço de localhost. No entanto, o broadcast para endereços na faixa 127.0.0.0/8 (loopback) não se comporta da mesma forma que um broadcast em uma rede física real. Mensagens enviadas para 127.255.255.255 seriam processadas apenas por aplicações no próprio host que estivessem escutando nesse endereço e porta específicos, e não "propagariam" para outros dispositivos como um broadcast de rede real. Para broadcast em uma rede local, geralmente usa-se o endereço de broadcast da própria sub-rede (ex: 192.168.1.255). 
+
+2c) A dificuldade em criar um mecanismo confiável para mensagens em BROADCAST reside principalmente na natureza fundamental do broadcast e do protocolo UDP: 
+
+Ausência de Confirmação (ACKs): O UDP não exige confirmações de recebimento (ACKs). Em um cenário de broadcast, para ter confiabilidade, cada receptor precisaria enviar um ACK. Isso levaria a um problema de "ACK implosion", onde um único remetente de broadcast seria inundado por múltiplas respostas, sobrecarregando a rede e o remetente.
+Controle de Fluxo e Congestionamento: Não há controle de fluxo no UDP. Em um broadcast, o remetente não sabe a capacidade dos receptores, podendo sobrecarregá-los. Um mecanismo confiável exigiria feedback de cada receptor sobre sua capacidade, o que é impraticável em escala.
+Reenvio (Retransmissões): Se um pacote de broadcast for perdido por alguns receptores, o remetente não tem como saber quais receptores o perderam. Reenviar o pacote para todos os dispositivos seria ineficiente e poderia resultar em pacotes duplicados para aqueles que já receberam. Rastrear o estado de recebimento de cada potencial receptor é complexo e não escalável.
+Descoberta de Receptores: Em um ambiente de broadcast, não há um conhecimento prévio de todos os receptores. Um mecanismo confiável precisaria saber quem são todos os participantes para garantir a entrega a todos.
+Problemas de Multicast vs. Broadcast: Embora o broadcast seja para "todos", a confiabilidade é mais comumente buscada em ambientes de multicast (onde há grupos específicos de receptores) através de protocolos mais complexos (como o Reliable Multicast Transport Protocol - RMTP), que ainda assim enfrentam desafios significativos para garantir a entrega a todos os membros do grupo. O broadcast puro, por sua vez, é inerentemente sem confiabilidade a nível de protocolo.
+Em resumo, a natureza sem conexão e a falta de feedback intrínseca do UDP, combinadas com a necessidade de escalar para potencialmente muitos receptores, tornam a implementação de um mecanismo de broadcast confiável muito complexa e geralmente impraticável em redes grandes, levando a um tráfego excessivo e ineficiência.
