@@ -8,7 +8,7 @@ nickname = input("Escolha seu nome: ")
 
 # Configurações do cliente
 HOST = '127.0.0.1'
-PORT = 12345
+PORT = 42069
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((HOST, PORT))

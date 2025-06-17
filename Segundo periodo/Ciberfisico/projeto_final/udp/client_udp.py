@@ -5,7 +5,7 @@ import threading
 
 # Configurações do servidor
 SERVER_HOST = '127.0.0.1'
-SERVER_PORT = 12345
+SERVER_PORT = 42069
 SERVER_ADDRESS = (SERVER_HOST, SERVER_PORT)
 
 #  Cada cliente deve informar um nome ou apelido ao conectar-se.

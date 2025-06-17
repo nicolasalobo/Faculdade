@@ -5,7 +5,7 @@ import threading
 
 # Configurações do servidor
 HOST = '127.0.0.1'  # Endereço IP do servidor (localhost)
-PORT = 12345        # Porta que o servidor vai escutar
+PORT = 42069        # Porta que o servidor vai escutar
 
 # Listas para armazenar os clientes conectados e seus nomes
 clients = []

@@ -5,7 +5,7 @@ import threading
 
 # Configurações do servidor
 HOST = '127.0.0.1'
-PORT = 12345
+PORT = 42069
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server.bind((HOST, PORT))
