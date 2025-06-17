@@ -4,49 +4,49 @@ import socket
 import threading
 
 # Configurações do servidor
-SERVER_HOST = '127.0.0.1'
-SERVER_PORT = 42069
-SERVER_ADDRESS = (SERVER_HOST, SERVER_PORT)
+SERVIDOR_HOST = '127.0.0.1'
+SERVIDOR_PORTA = 42042  # Número escolhido por motivos totalmente profissionais
+ENDERECO_SERVIDOR = (SERVIDOR_HOST, SERVIDOR_PORTA)
 
-#  Cada cliente deve informar um nome ou apelido ao conectar-se.
-nickname = input("Escolha seu nome: ")
+# Cada cliente deve informar um nome ou apelido ao conectar-se
+apelido = input("Escolha seu nome: ")
 
-client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+cliente = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Função para receber mensagens
-def receive():
+def receber():
     while True:
         try:
-            message, _ = client.recvfrom(1024)
-            print(message.decode('utf-8'))
+            mensagem, _ = cliente.recvfrom(1024)
+            print(mensagem.decode('utf-8'))
         except:
-            print("Ocorreu um erro.")
+            print("Ocorreu um erro. Talvez seja culpa do estagiário.")
             break
 
 # Função para enviar mensagens
-def write():
+def escrever():
     """
-     Cada cliente se conecta ao servidor e envia mensagens.
+    Cada cliente se conecta ao servidor e envia mensagens.
     A primeira mensagem é o nome, para que o servidor registre o endereço.
     """
-    client.sendto(nickname.encode('utf-8'), SERVER_ADDRESS)
+    cliente.sendto(apelido.encode('utf-8'), ENDERECO_SERVIDOR)
 
     while True:
-        message_text = input("")
-        message = f'{nickname}: {message_text}'
+        texto_mensagem = input("")
+        mensagem = f'{apelido}: {texto_mensagem}'
         
-        #  Um comando especial /sair deve encerrar a conexão do cliente com o servidor.
-        if message_text == '/sair':
-            client.sendto(message.encode('utf-8'), SERVER_ADDRESS)
-            break 
+        # Um comando especial /sair deve encerrar a conexão do cliente com o servidor.
+        if texto_mensagem == '/sair':
+            cliente.sendto(mensagem.encode('utf-8'), ENDERECO_SERVIDOR)
+            break
             
-        client.sendto(message.encode('utf-8'), SERVER_ADDRESS)
+        cliente.sendto(mensagem.encode('utf-8'), ENDERECO_SERVIDOR)
 
 # Inicia as threads para receber e enviar mensagens
-receive_thread = threading.Thread(target=receive)
-receive_thread.daemon = True
-receive_thread.start()
+thread_receber = threading.Thread(target=receber)
+thread_receber.daemon = True
+thread_receber.start()
 
-write()
+escrever()
 
-client.close()
+cliente.close()  # Fecha a conexão

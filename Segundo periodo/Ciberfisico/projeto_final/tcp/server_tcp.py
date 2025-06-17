@@ -3,101 +3,100 @@
 import socket
 import threading
 
-# Configurações do servidor
-HOST = '127.0.0.1'  # Endereço IP do servidor (localhost)
-PORT = 42069        # Porta que o servidor vai escutar
+# Configurações do servidor (onde a mágica acontece)
+HOST = '127.0.0.1'  # IP do servidor (localhost, porque ninguém quer visitas inesperadas)
+PORTA = 42069       # Porta escolhida a dedo (ou não)
 
-# Listas para armazenar os clientes conectados e seus nomes
-clients = []
-nicknames = []
+# Listas para guardar clientes e apelidos (tipo lista VIP, mas todo mundo entra)
+clientes = []
+apelidos = []
 
-# Função para transmitir mensagens a todos os clientes conectados
-def broadcast(message, _client_socket):
+# Função para espalhar fofoca (mensagens) para todos, menos para quem contou
+def espalhar_mensagem(mensagem, cliente_remetente):
     """
-    Envia uma mensagem para todos os clientes, exceto para o remetente.
-     O servidor retransmite qualquer mensagem recebida a todos os outros clientes conectados.
+    Espalha a mensagem para todo mundo, menos para o fofoqueiro original.
+    Se alguém sair da festa, avisa geral.
     """
-    for client in clients:
-        if client != _client_socket:
+    for cliente in clientes:
+        if cliente != cliente_remetente:
             try:
-                client.send(message)
+                cliente.send(mensagem)
             except:
-                # Remove o cliente se a conexão falhar
-                index = clients.index(client)
-                clients.remove(client)
-                client.close()
-                nickname = nicknames[index]
-                broadcast(f'{nickname} saiu do chat!'.encode('utf-8'), client)
-                nicknames.remove(nickname)
+                # Se o cliente sumir, tira da lista e avisa a galera
+                indice = clientes.index(cliente)
+                clientes.remove(cliente)
+                cliente.close()
+                apelido = apelidos[indice]
+                espalhar_mensagem(f'{apelido} saiu do chat!'.encode('utf-8'), cliente)
+                apelidos.remove(apelido)
                 break
 
-# Função para lidar com a comunicação de um cliente específico
-def handle_client(client_socket):
+# Função para cuidar de um cliente (tipo babá eletrônica, mas para sockets)
+def cuidar_cliente(cliente_socket):
     """
-    Gerencia a conexão de um único cliente em uma thread dedicada.
-     O servidor deve estar preparado para receber conexões simultâneas de diversos clientes (usando Threads).
+    Fica de olho em um cliente só, em uma thread exclusiva (VIP do caos).
+    Aceita várias crianças (clientes) ao mesmo tempo, porque a bagunça é garantida.
     """
     while True:
         try:
-            # Recebe a mensagem do cliente
-            message = client_socket.recv(1024)
-            if not message:
+            # Recebe fofoca nova do cliente
+            mensagem = cliente_socket.recv(1024)
+            if not mensagem:
                 break
             
-            # Verifica o comando para sair
-            #  Um comando especial /sair deve encerrar a conexão do cliente com o servidor.
-            if message.decode('utf-8').split(": ", 1)[1] == '/sair':
-                index = clients.index(client_socket)
-                nickname = nicknames[index]
-                broadcast(f'{nickname} desconectou-se.'.encode('utf-8'), client_socket)
-                print(f'{nickname} desconectou-se.')
+            # Se o cliente mandar '/sair', é porque cansou da festa
+            if mensagem.decode('utf-8').split(": ", 1)[1] == '/sair':
+                indice = clientes.index(cliente_socket)
+                apelido = apelidos[indice]
+                espalhar_mensagem(f'{apelido} desconectou-se.'.encode('utf-8'), cliente_socket)
+                print(f'{apelido} desconectou-se.')
                 
-                # Remove e fecha a conexão do cliente
-                clients.remove(client_socket)
-                nicknames.remove(nickname)
-                client_socket.close()
+                # Tira o cliente da lista e fecha a porta
+                clientes.remove(cliente_socket)
+                apelidos.remove(apelido)
+                cliente_socket.close()
                 break
             else:
-                broadcast(message, client_socket)
+                espalhar_mensagem(mensagem, cliente_socket)
 
         except:
-            # Em caso de erro, remove o cliente
-            index = clients.index(client_socket)
-            clients.remove(client_socket)
-            client_socket.close()
-            nickname = nicknames[index]
-            broadcast(f'{nickname} saiu do chat!'.encode('utf-8'), client_socket)
-            nicknames.remove(nickname)
+            # Se der ruim, tira o cliente da lista e avisa geral
+            indice = clientes.index(cliente_socket)
+            clientes.remove(cliente_socket)
+            cliente_socket.close()
+            apelido = apelidos[indice]
+            espalhar_mensagem(f'{apelido} saiu do chat!'.encode('utf-8'), cliente_socket)
+            apelidos.remove(apelido)
             break
 
-# Função principal para iniciar o servidor
-def start_server():
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind((HOST, PORT))
-    server.listen()
+# Função principal: abre a casa e espera a galera chegar
+def iniciar_servidor():
+    servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    servidor.bind((HOST, PORTA))
+    servidor.listen()
 
-    print(f"Servidor TCP escutando em {HOST}:{PORT}")
+    print(f"Servidor TCP esperando a galera em {HOST}:{PORTA}")
 
     while True:
-        # Aceita uma nova conexão
-        client_socket, address = server.accept()
-        print(f"Conexão estabelecida com {str(address)}")
+        # Recebe novo convidado
+        cliente_socket, endereco = servidor.accept()
+        print(f"Convidado chegou: {str(endereco)}")
 
-        # Solicita o nome ao cliente
-        client_socket.send('NICK'.encode('utf-8'))
-        nickname = client_socket.recv(1024).decode('utf-8')
+        # Pede o apelido (ninguém quer ser chamado pelo nome completo na festa)
+        cliente_socket.send('APELIDO'.encode('utf-8'))
+        apelido = cliente_socket.recv(1024).decode('utf-8')
         
-        # Adiciona o novo cliente e seu nome às listas
-        nicknames.append(nickname)
-        clients.append(client_socket)
+        # Coloca o novo na lista VIP
+        apelidos.append(apelido)
+        clientes.append(cliente_socket)
 
-        print(f"Nome do cliente é {nickname}")
-        broadcast(f"{nickname} entrou no chat!".encode('utf-8'), client_socket)
-        client_socket.send('Conectado ao servidor!'.encode('utf-8'))
+        print(f"Apelido do convidado: {apelido}")
+        espalhar_mensagem(f"{apelido} entrou no chat!".encode('utf-8'), cliente_socket)
+        cliente_socket.send('Conectado ao servidor!'.encode('utf-8'))
 
-        # Inicia uma nova thread para o cliente
-        thread = threading.Thread(target=handle_client, args=(client_socket,))
+        # Cria uma babá eletrônica (thread) para o novo convidado
+        thread = threading.Thread(target=cuidar_cliente, args=(cliente_socket,))
         thread.start()
 
 if __name__ == "__main__":
-    start_server()
+    iniciar_servidor()

@@ -3,47 +3,52 @@
 import socket
 import threading
 
-#  Cada cliente deve informar um nome ou apelido ao conectar-se.
-nickname = input("Escolha seu nome: ")
+# Cada cliente deve informar um nome ou apelido ao conectar-se.
+# Escolha seu nome de herói, vilão ou fruta favorita!
+apelido = input("Escolha seu nome: ")
 
 # Configurações do cliente
-HOST = '127.0.0.1'
-PORT = 42069
+HOST = '127.0.0.1'  # Porque localhost é o melhor amigo do programador
+PORTA = 42069        # Número de porta escolhido com carinho (e memes)
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((HOST, PORT))
+cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+cliente.connect((HOST, PORTA))
 
 # Função para receber mensagens do servidor
-def receive():
+def receber():
     while True:
         try:
-            message = client.recv(1024).decode('utf-8')
-            if message == 'NICK':
-                client.send(nickname.encode('utf-8'))
+            mensagem = cliente.recv(1024).decode('utf-8')
+            if mensagem == 'NICK':
+                # O servidor quer saber quem é você (não decepcione!)
+                cliente.send(apelido.encode('utf-8'))
             else:
-                print(message)
+                print(mensagem)
         except:
-            print("Ocorreu um erro!")
-            client.close()
+            print("Ocorreu um erro! (provavelmente culpa do estagiário)")
+            cliente.close()
             break
 
 # Função para enviar mensagens para o servidor
-def write():
+def escrever():
     """
-     Cada cliente se conecta ao servidor e envia mensagens.
+    Cada cliente se conecta ao servidor e envia mensagens.
     """
     while True:
-        message = f'{nickname}: {input("")}'
-        #  Um comando especial /sair deve encerrar a conexão do cliente com o servidor.
-        if message.split(": ", 1)[1] == '/sair':
-            client.send(message.encode('utf-8'))
-            client.close()
+        # O input mais aguardado desde o ENEM
+        mensagem = f'{apelido}: {input("")}'
+        # Um comando especial /sair deve encerrar a conexão do cliente com o servidor.
+        if mensagem.split(": ", 1)[1] == '/sair':
+            # Adeus, mundo cruel (ou só o chat mesmo)
+            cliente.send(mensagem.encode('utf-8'))
+            cliente.close()
             break
-        client.send(message.encode('utf-8'))
+        cliente.send(mensagem.encode('utf-8'))
 
 # Inicia as threads para receber e enviar mensagens
-receive_thread = threading.Thread(target=receive)
-receive_thread.start()
+# Porque programador raiz usa threads e não dorme
+thread_receber = threading.Thread(target=receber)
+thread_receber.start()
 
-write_thread = threading.Thread(target=write)
-write_thread.start()
+thread_escrever = threading.Thread(target=escrever)
+thread_escrever.start()
