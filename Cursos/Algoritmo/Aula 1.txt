@@ -1,0 +1,10 @@
+Algoritmo está em tudo que fazemos no nosso dia a dia. Algoritmos são conjunto de passos finitos e organizados que, quando executados, resolvem um determinado problema.
+Um claro exemplo de algoritmo é Atravessar a rua.
+AtravessarRua
+    Olhar para a direita
+    Olhar para a esquerda
+    se estiver vindo carro
+        nao atravesse
+    senão
+        atravesse
+fim do algoritmo.

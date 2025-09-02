@@ -1,0 +1,7 @@
+Algoritmo é todo tipo de rotina que executamos no nosso dia a dia. Algoritmos computacionais por sua vez, são a mesma coisa, com um foco diferente. São passos a serem seguidos por um módulo processador e seus respectivos usuários que, quando executados na ordem correta, conseguem realizar determinada tarefa. Módulo processador hoje em dia é tudo que pode ser programado. Usuário é quem interage com o sistema, fornecendo dados de entrada e recebendo resultados. Realizar uma tarefa é fazer algo requisitado pelo usuário usando o módulo processador. Hoje em dia basicamente tudo é um algoritmo, usa algoritmo ou enfim.
+Todo algoritmo computacional começa com a lógica de programação, que é construir uma boa lógica. Depois vamos para a linguagem de programação, que é a forma de escrever essa lógica, e depois vamos ao passo final que é o sistema final. 
+A maneira mais famosa para mostrar a lógica de programação é o fluxograma, porém a mais usada é a pseudolinguagem.
+Vamos ver agora o que são variáveis:
+Variáveis são espaços como se fosse um escaninho, onde podemos colocar objetos. É equivalente a memório do computador que armazena as informações.
+A variável simples consegue armazenar apenas um valor, se você quiser colocar outro valor, deve remover ou substituir o valor anterior. Cada variável tem seu próprio tipo.
+CANSEI DO CURSO MUITO BÁSICO, VOU PULAR DIRETO PARA OS EXERCICIOS.
