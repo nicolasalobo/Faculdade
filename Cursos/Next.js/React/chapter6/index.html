@@ -1,0 +1,46 @@
+function Header() {
+  return <h1>Develop. Preview. Ship.</h1>;
+}
+ 
+function HomePage() {
+  return (
+    <div>
+      <Header />
+      <Header />
+    </div>
+  );
+}
+
+// using props
+function HomePage() {
+  return (
+    <div>
+      <Header title="React" />
+    </div>
+  );
+}
+
+// header aceitando props
+function Header(props) {
+  return <h1>Develop. Preview. Ship.</h1>;
+}
+
+// console log
+function Header(props) {
+  console.log(props); // { title: "React" }
+  return <h1>Develop. Preview. Ship.</h1>;
+}
+
+// Como props é um objeto, você pode usar desestruturação para nomear explicitamente os valores de props nos parâmetros da função:
+
+function Header({ title }) {
+  console.log(title); // "React"
+  return <h1>Develop. Preview. Ship.</h1>;
+}
+
+// corrigir o retorno do título 
+
+function Header({ title }) {
+  console.log(title);
+  return <h1>{title}</h1>;
+}
